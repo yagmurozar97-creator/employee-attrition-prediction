@@ -1,28 +1,16 @@
 # Employee Attrition Prediction and Retention Analysis
 
-End-to-end HR analytics project focused on employee attrition prediction, retention analysis, feature importance evaluation, and business recommendations using machine learning models.
-
----
-
-## Project Highlights
-
-### Model Comparison
-
-![Model Comparison](model_comparison.png)
-
-### Feature Importance
-
-![Feature Importance](feature_importance.png)
+An end-to-end HR Analytics project that leverages machine learning to predict employee attrition, identify the key drivers of turnover, and provide actionable retention recommendations for HR decision-making.
 
 ---
 
 ## Project Overview
 
-Employee attrition is a major challenge for organizations because employee turnover leads to increased recruitment costs, productivity loss, and knowledge gaps.
+## Project Overview
 
-This project aims to identify employees who are at risk of leaving the company and provide data-driven retention recommendations using machine learning techniques.
+Employee attrition creates significant organizational costs through recruitment expenses, productivity loss, and the erosion of institutional knowledge. This project leverages the IBM HR Analytics Dataset to predict employee attrition, identify the key drivers of turnover, and provide actionable retention recommendations.
 
-The analysis combines exploratory data analysis (EDA), feature engineering, classification modeling, model comparison, and business-oriented interpretation of results.
+The workflow includes exploratory data analysis (EDA), feature engineering, classification modeling, model evaluation, and business-focused interpretation of results. By identifying high-risk employee profiles before potential resignation, the project aims to support proactive HR decision-making and improve talent retention strategies.
 
 ---
 
@@ -33,35 +21,36 @@ The primary objective is to predict employee attrition and understand the factor
 Key questions addressed in this project include:
 
 - Which employees are most likely to leave the company?
-- What workplace factors influence attrition?
-- How do work-life balance and compensation affect retention?
+- What workplace factors have the greatest impact on attrition?
+- Which machine learning model performs best in predicting employee attrition?
 - Which machine learning model performs best for identifying at-risk employees?
+- What actionable insights can HR teams use to improve retention?
 
 ---
 
 ## Dataset
 
-The project uses the IBM HR Analytics Employee Attrition dataset.
+The project uses the IBM HR Analytics Employee Attrition Dataset, which contains 1,470 employee records and 35 features related to demographics, compensation, job characteristics, and workplace satisfaction.
 
-Dataset includes employee information such as:
+### Feature Categories
 
-- Demographics
-- Education
-- Job Role
-- Business Travel Frequency
-- Overtime
-- Monthly Income
-- Job Satisfaction
-- Environment Satisfaction
-- Work-Life Balance
-- Years at Company
-- Promotion History
+- **Demographics:** Age, Gender, Marital Status, Education Field
+- **Compensation & Career:** Monthly Income, Job Level, Stock Option Level, Percent Salary Hike
+- **Work Environment:** Overtime, Business Travel, Distance From Home, Job Involvement
+- **Employee Satisfaction:** Job Satisfaction, Environment Satisfaction, Work-Life Balance
+- **Tenure & Growth:** Years at Company, Years Since Last Promotion, Total Working Years
 
 ### Target Variable
 
-- Attrition
-  - Yes = Employee left the company
-  - No = Employee stayed
+- **Attrition**
+  - **Yes:** Employee left the company
+  - **No:** Employee stayed with the company
+
+### Class Distribution
+
+![Class Distribution](class_imbalance.png)
+
+The target variable is imbalanced, with 83.9% of employees staying and 16.1% leaving the company.
 
 ---
 
@@ -89,65 +78,40 @@ The following analyses were performed:
 
 The following preprocessing steps were applied:
 
-- Target variable encoding
-- Removal of non-informative variables
-- One-hot encoding
+- Encoded the target variable (`Attrition`)
+- Removed non-informative features
+- Applied One-Hot Encoding to categorical variables
 - Train-Test Split (80/20)
-- Feature Scaling using StandardScaler
+- Standardized numerical features using `StandardScaler`
 
 ---
 
 ## Machine Learning Models
 
-### Logistic Regression
-
-Baseline classification model used for initial performance evaluation.
-
-### Balanced Logistic Regression
-
-Implemented using:
-
-```python
-class_weight="balanced"
-```
-
-to address class imbalance and improve employee attrition detection.
-
-### Random Forest
-
-Tree-based ensemble model used to capture nonlinear relationships.
-
 ---
 
-## Model Comparison
+## Model Performance & Comparison
+
+Since the dataset is imbalanced, model evaluation focused primarily on **Recall** and **ROC-AUC** rather than accuracy alone. In an employee attrition problem, identifying employees at risk of leaving is more important than maximizing overall accuracy.
+
 
 | Model | Accuracy | Recall | ROC-AUC |
 |---------|---------|---------|---------|
-| Logistic Regression | 0.86 | 0.34 | 0.80 |
 | Balanced Logistic Regression | 0.75 | 0.62 | 0.80 |
 | Random Forest | 0.83 | 0.09 | 0.80 |
 
 ### Selected Model
 
-Balanced Logistic Regression was selected as the preferred model.
-
-Although Logistic Regression achieved the highest accuracy, Balanced Logistic Regression achieved the highest recall score for attrition cases.
-
-Since the primary business objective is identifying employees at risk of leaving, recall was prioritized over accuracy.
+Balanced Logistic Regression was selected as the preferred model. Although Random Forest achieved higher accuracy, it identified only a small proportion of employees who actually left the company (Recall = 0.09). Since the primary business objective is identifying employees at risk of attrition, recall was prioritized over accuracy.
 
 ---
 
-## Feature Importance
+## Top Features by Logistic Regression Coefficients
 
-The most influential predictors of employee attrition were:
+The most influential predictors of employee attrition identified by the Balanced Logistic Regression model are shown below.
 
-- Laboratory Technician
-- Overtime
-- Frequent Business Travel
-- Sales Representative
-- Job Level
-- Total Working Years
-- Years Since Last Promotion
+
+![Feature Importance](top_features.png)
 
 These findings suggest that workload, travel requirements, career stage, and job characteristics play a significant role in employee retention.
 
@@ -155,12 +119,20 @@ These findings suggest that workload, travel requirements, career stage, and job
 
 ## Business Recommendations
 
-1. Reduce excessive overtime whenever possible.
-2. Monitor employees with frequent business travel.
-3. Develop retention strategies for high-risk job roles.
-4. Create clearer promotion pathways.
-5. Improve career development opportunities.
-6. Track employee satisfaction indicators regularly.
+Based on the analysis and model findings, the following actions may help reduce employee attrition:
+
+1. **Reduce Excessive Overtime**
+   - Monitor workloads and redistribute tasks to prevent employee burnout.
+ 2.**Support Frequent Business Travelers**
+   - Provide flexible work arrangements and additional support for employees with high travel demands.
+ 3. **Create Clear Promotion Pathways**
+   - Identify employees who have not received promotions for extended periods and establish transparent career progression plans.
+4. **Strengthen Career Development Programs**
+   - Offer training, mentoring, and internal mobility opportunities to improve employee engagement.
+5. **Monitor Employee Satisfaction**
+   - Regularly track job satisfaction, work-life balance, and workplace engagement metrics.
+. **Focus on High-Risk Employee Groups**
+   - Use predictive analytics to proactively identify and support employees at higher risk of attrition.
 
 ---
 
@@ -183,8 +155,8 @@ employee-attrition-prediction/
 │
 ├── employee_attrition.ipynb
 ├── Employee_Attrition_Analysis.csv
-├── feature_importance.png
-├── model_comparison.png
+├── class_imbalance.png
+├── top_features.png
 └── README.md
 ```
 
